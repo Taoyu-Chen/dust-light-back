@@ -20,7 +20,7 @@ app.use(cors({
 }));
 
 // session config
-app.keys = ['ddw2d1@#！@2ASDd'];
+app.keys = ['Wd(&2d1@#！@2ASDd'];
 app.use(session({
   // config cookie
   cookie: {
