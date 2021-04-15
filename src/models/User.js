@@ -14,14 +14,47 @@ const Schema = mongoose.Schema({
     type: String,
     required: true
   },
-  name: {
+  email: {
     type: String,
     required: true
   },
-  phoneNumber: {
+  telephone: {
     type: String,
     required: true
+  },
+  personalSignature: {
+    type: String,
+    default: "This person is very lazy and doesn't write anything"
+  },
+  money: {
+    type: Number,
+    default: 0
+  },
+  isBan: {
+    type: Boolean,
+    default: false
   }
+  //
+  // contactList: [
+  //   // Contact list
+  //   {
+  //     contact: {
+  //       username: {
+  //         type: String,
+  //         require: true,
+  //       },
+  //       contactTelephone: {
+  //         type: String,
+  //         required: true,
+  //       },
+  //       contactName: {
+  //         type: String,
+  //         required: true,
+  //       }
+  //     }
+  //   }
+  // ]
+  
 }, { timestamps: true })
 
 const User = mongoose.model('user', Schema)
