@@ -73,7 +73,7 @@ router.post('/unlock', async function(ctx, next) {
     ctx.body = new SuccessModel(ctx.session.userInfo)
   } else {
     // return failure  message
-    ctx.body = new ErrorModel(10003, `Unlock user failed`)
+    ctx.body = new ErrorModel(10004, `Unlock user failed`)
   }
 })
 

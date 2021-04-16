@@ -2,7 +2,7 @@
  * @description Login check middleware
  */
 
-module.exports = async (ctxx, next) => {
+module.exports = async (ctx, next) => {
   const session = ctx.session
   if (session && session.userInfo) {
     await next()
