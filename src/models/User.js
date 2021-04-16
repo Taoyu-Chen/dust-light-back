@@ -30,7 +30,7 @@ const Schema = mongoose.Schema({
     type: Number,
     default: 0
   },
-  isBan: {
+  isLock: {
     type: Boolean,
     default: false
   }
