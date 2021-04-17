@@ -11,6 +11,7 @@ const cors = require('koa2-cors');
 const index = require('./routes/index');
 const users = require('./routes/users');
 const announcements = require('./routes/announcements')
+const contacts = require('./routes/contacts')
 // error handler
 onerror(app);
 
@@ -54,6 +55,7 @@ app.use(async(ctx, next) => {
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
 app.use(announcements.routes(), announcements.allowedMethods());
+app.use(contacts.routes(), contacts.allowedMethods());
 // error-handling
 app.on('error', (err, ctx) => {;
   console.error('server error', err, ctx);
