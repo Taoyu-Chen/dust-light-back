@@ -20,8 +20,10 @@ async function getContactById(id) {
 
 // create a contact
 async function createContact(username, data = {}) {
-    const contact = await Contact.create({ username, ...data })
-    return contact
+    const contact = await Contact.findOne({ username })
+    contact.contacts.push({ contact_username: data.username, contact_telephone: data.telephone })
+    const saveContact = await contact.save()
+    return saveContact
 }
 
 // update a contact

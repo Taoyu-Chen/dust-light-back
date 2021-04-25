@@ -26,13 +26,17 @@ router.post('/login', async function(ctx, next) {
 
   // login check
   const res = await login(username, password, type)
+  console.log(res)
+  const { email, telephone, personalSignature } = res;
   if (res) {
     // Verification is successful, set session.userInfo
     ctx.session.userInfo = {
       username,
       type,
+      email,
+      telephone,
+      personalSignature
     }
-
     // return success message
     ctx.body = new SuccessModel(ctx.session.userInfo)
   } else {

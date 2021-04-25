@@ -6,16 +6,24 @@ const Schema = mongoose.Schema({
     require: true,
     unique: true,
   },
-  contactTelephone: {
-    type: String,
-    required: true,
-  },
-  contactName: {
-    type: String,
-    required: true,
-  }
+  contacts: [{
+    contact_username: {
+      type: String,
+    },
+    contact_telephone: {
+      type: Number,
+    }
+  }]
+  // contactTelephone: {
+  //   type: String,
+  //   required: true,
+  // },
+  // contactName: {
+  //   type: String,
+  //   required: true,
+  // }
 }, { timestamps: true })
 
-const User = mongoose.model('contacts', Schema)
+const Contact = mongoose.model('contacts', Schema)
 
-module.exports = User
+module.exports = Contact

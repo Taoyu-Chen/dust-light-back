@@ -3,7 +3,7 @@
  * @author Taoyu Chen
  */
 
-const { User } = require('../models/index')
+const { User, Contact } = require('../models/index')
 
 /**
  * Login
@@ -15,7 +15,7 @@ async function login(username, password, type) {
     const user = await User.findOne({ username, password, type })
     if (user != null) {
         // login successful
-        return true
+        return user
     }
     // login failed
     return false
@@ -28,6 +28,7 @@ async function login(username, password, type) {
 async function register(userInfo = {}) {
     // 注意验证一下 username unique
     const newUser = await User.create(userInfo)
+    const newContact = await Contact.create({username: userInfo.username})
     return newUser
 }
 

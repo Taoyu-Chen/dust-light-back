@@ -22,8 +22,8 @@ const { Announcement } = require('../../models/index')
     // a2.save() // Save to database
 
     // Get the list of announcements
-    // const announcementList = await Announcement.find().sort({ updatedAt: -1 }) // 按更新时间倒序
-    // console.log('announcement list', announcementList)
+    const announcementList = await Announcement.find().sort({ updatedAt: -1 }) // 按更新时间倒序
+    console.log('announcement list', announcementList)
 
     // 获取单个地址，根据 id 获取（以下两种写法都可以）
     //const announcement = await Announcement.findOne({ _id: '607407392b6f37900a8764b3' })

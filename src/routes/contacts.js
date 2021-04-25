@@ -3,7 +3,7 @@ const {
   getContactById,
   getContactList,
   createContact
-} = require('../controller/contacts')
+} = require('../controller/contact')
 const loginCheck = require('../middleware/loginCheck')
 const { SuccessModel, ErrorModel } = require('../res-model/index')
 
@@ -33,7 +33,7 @@ router.get('/:id', loginCheck, async function (ctx, next) {
     
 })
 
-router.post('/', async function (ctx, next) {
+router.post('/',loginCheck, async function (ctx, next) {
   const userInfo = ctx.session.userInfo
   const username = userInfo.username
   const data = ctx.request.body
