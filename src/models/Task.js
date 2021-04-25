@@ -35,19 +35,14 @@ const Schema = mongoose.Schema({
     default: 0
   },
   biddingList: [{
-    bidder: {
-      username: {
-        type: String,
-        require: true,
-        unique: true,
-      },
-      telephone: {
-        type: String,
-        required: true
-      },
+    bidder_username: {
+      type: String,
     },
-  }
-  ],
+    bidder_telephone: {
+      type: Number
+    },
+  }],
+  default: [],
   fdUsername: {
     type: String,
     default: "",
@@ -55,6 +50,7 @@ const Schema = mongoose.Schema({
   bpUsername: {
     type: String,
     default: "",
+    required: true
   },
   // Whether the order was cancelled
   isCanceled: {

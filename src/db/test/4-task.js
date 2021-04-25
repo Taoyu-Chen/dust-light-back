@@ -3,17 +3,25 @@
  * @author Taoyu Chen
  */
 
-const { Task } = require('../../models/index')
+const { Task, User } = require('../../models/index')
 
 !(async() => {
     // create
-    const t1 = new Task({
-      name: "Car logo",
+  try {
+    const bpUsername = "Simon"
+    const t1 = {
+      name: "Car logo11",
       budget: 100,
       type: "logo",
       deadline: "2021-5-5",
-    })
-    t1.save() 
+    }
+    const task = await Task.create({ bpUsername,...t1})
+    console.log(task) 
+  }
+  catch (err) {
+    console.log(err.message)
+  }
+    
     // Save to database
     // create
     // const c2 = new Contact({
@@ -29,7 +37,19 @@ const { Task } = require('../../models/index')
     //     contactName: "nuistSimon"
     // })
     // c3.save() 
-
+  // var u1 = new User({
+  //   username: 'Simon2e',
+  //   telephone: '188343412244',
+  //   password: '123456',
+  // });
+  // const username = "nuistSimon"
+  // const user = await User.findOne({ username: username })
+  // const taskname = "Car logo"
+  // const task = await Task.findOne({ name: taskname })
+  // //console.log(u1)
+  // task.biddingList.push(user)
+  // const saveTask = await task.save()
+  //console.log(saveTask)
     // Get the list of contact list
     // const contactList = await Contact.find({ username: "Simon" }).sort({ _id: -1 }) // 按更新时间倒序
     // console.log('contact list', contactList)
