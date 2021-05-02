@@ -12,6 +12,9 @@ const users = require('./routes/users');
 const announcements = require('./routes/announcements')
 const contacts = require('./routes/contacts')
 const tasks = require('./routes/tasks')
+const swagger = require('./swagger')  // 存放swagger.js的位置，可以自行配置，我放在了根目录
+const koaSwagger = require('koa2-swagger-ui')
+
 // error handler
 onerror(app);
 
@@ -57,6 +60,15 @@ app.use(users.routes(), users.allowedMethods());
 app.use(announcements.routes(), announcements.allowedMethods());
 app.use(contacts.routes(), contacts.allowedMethods());
 app.use(tasks.routes(), tasks.allowedMethods());
+
+// swagger ui document config
+app.use(swagger.routes(), swagger.allowedMethods())
+app.use(koaSwagger({
+  routePrefix: '/swagger', // swagger ui document access address
+  swaggerOptions: {
+    url: '/swagger.json', // example path to json
+  }
+}))
 
 // error-handling
 app.on('error', (err, ctx) => {;
