@@ -5,11 +5,10 @@
 
 const { Contact } = require('../models/index')
 
-
 // get contact list
 async function getContactList(username) {
-    const contactList = await Contact.find({username}).sort({ updatedAt: -1 }) // 按更新时间倒序
-    return contactList
+    const contact= await Contact.findOne({username}) // 按更新时间倒序
+    return contact
 }
 
 // get contact by id
@@ -21,7 +20,7 @@ async function getContactById(id) {
 // create a contact
 async function createContact(username, data = {}) {
     const contact = await Contact.findOne({ username })
-    contact.contacts.push({ contact_username: data.username, contact_telephone: data.telephone })
+    contact.contacts.push({ contact_username: data.contact_username, contact_telephone: data.contact_telephone })
     const saveContact = await contact.save()
     return saveContact
 }
@@ -38,9 +37,22 @@ async function updateContact(id, data = {}) {
     return contact
 }
 
+// delete a contact
+async function deleteContact(username ,data = {}) {
+    const contact = await Contact.findOne({ username })
+    for (let i = 0; i < contact.contacts.length; i++){
+        if (contact.contacts[i].contact_username == data.contact_username && contact.contacts[i].contact_telephone == data.contact_telephone) {
+            contact.contacts.splice(i, 1)
+        }
+    }
+    const deleteContact = await contact.save()
+    return deleteContact
+}
+
 module.exports = {
     getContactById,
     getContactList,
     createContact,
-    updateContact
+    updateContact,
+    deleteContact
 }

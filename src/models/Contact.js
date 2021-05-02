@@ -14,14 +14,6 @@ const Schema = mongoose.Schema({
       type: Number,
     }
   }]
-  // contactTelephone: {
-  //   type: String,
-  //   required: true,
-  // },
-  // contactName: {
-  //   type: String,
-  //   required: true,
-  // }
 }, { timestamps: true })
 
 const Contact = mongoose.model('contacts', Schema)
