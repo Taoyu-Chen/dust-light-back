@@ -34,27 +34,6 @@ const Schema = mongoose.Schema({
     type: Boolean,
     default: false
   }
-  //
-  // contactList: [
-  //   // Contact list
-  //   {
-  //     contact: {
-  //       username: {
-  //         type: String,
-  //         require: true,
-  //       },
-  //       contactTelephone: {
-  //         type: String,
-  //         required: true,
-  //       },
-  //       contactName: {
-  //         type: String,
-  //         required: true,
-  //       }
-  //     }
-  //   }
-  // ]
-  
 }, { timestamps: true })
 
 const User = mongoose.model('user', Schema)

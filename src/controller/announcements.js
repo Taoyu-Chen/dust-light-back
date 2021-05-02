@@ -20,7 +20,7 @@ async function getAnnouncementById(id) {
 
 // create a announcement
 async function createAnnouncement(data = {}) {
-    const announcement = await Announcement.create({data})
+    const announcement = await Announcement.create(data)
     return announcement
 }
 
