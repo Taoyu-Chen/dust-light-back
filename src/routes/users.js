@@ -129,8 +129,8 @@ router.post('/login', async function(ctx, next) {
   // login check
   const res = await login(username, password, type)
   console.log(res)
-  const { email, telephone, personalSignature, _id } = res;
-  if (res) {
+  const { email, telephone, personalSignature, isLock } = res;
+  if (res && isLock === false) {
     // Verification is successful, set session.userInfo
     ctx.session.userInfo = {
       username,
