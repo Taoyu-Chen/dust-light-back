@@ -37,7 +37,7 @@ async function getTaskByBPUsername(username) {
  * @param {String} username business people username
  */
 async function getTaskByFDUsername(username) {
-    const task = await Task.find({fdUsername: username, status: 1})
+    const task = await Task.findOne({fdUsername: username, status: 1, isCanceled: false})
     return task
 }
 
@@ -61,10 +61,10 @@ async function updateTask(id, data = {}) {
 
 /**
  * cancel task
- * @param {String} name task name
+ * @param {String} id task name
  */
-async function cancelTask(name) {
-    const newTask = await Task.updateOne({name},
+async function cancelTask(id) {
+    const newTask = await Task.findOneAndUpdate({ _id: id },
 {"$set" : {"isCanceled" : true}})
     return newTask
 }
@@ -72,54 +72,82 @@ async function cancelTask(name) {
 /**
  * select task freelancer designer
  * @param {String} fdUsername freelancer designer username
- * @param {String} name task name
+ * @param {String} id task id
  */
-async function selectTaskFD(fdUsername ,name) {
-    const newTask = await Task.updateOne({name},
+async function selectTaskFD(fdUsername ,id) {
+    const newTask = await Task.findOneAndUpdate({ _id: id } ,
 {"$set" : { 
     "status" : 1, "fdUsername" : fdUsername}})
     return newTask
 }
 
 /**
- * submit task works
- * @param {String} name task name
+ * delete task freelancer designer
+ * @param {String} fdUsername freelancer designer username
+ * @param {String} id task id
  */
-async function submitTask(name) {
-    const newTask = await Task.updateOne({name},
-{"$set" : {"status" : 2}})
+async function deleteTaskFD(fdUsername, id) {
+    const task = await Task.findOne({ _id: id })
+    for (let i = 0; i < task.biddingList.length; i++){
+        if (task.biddingList[i].bidder_username == fdUsername) {
+            task.biddingList.splice(i, 1)
+        }
+    }
+    const newTask = await task.save()
+    return newTask
+}
+/**
+ * submit task works
+ * @param {String} id task id
+ * @param {String} description task submit description
+ */
+async function submitTask(id, description) {
+    const newTask = await Task.findOneAndUpdate({ _id: id },
+        {
+            "$set": {
+                "status": 2,
+                "work.uploader_description": description
+            }
+        })
     return newTask
 }
 
 /**
  * return task works
- * @param {String} name task name
+ * @param {String} id task id
  */
-async function returnTask(name) {
-    const newTask = await Task.updateOne({status: 3,name},
-{"$set" : {"status" : 1}})
+async function returnTask(id) {
+    const newTask = await Task.findOneAndUpdate({ _id: id, status: 3 },
+        {
+            "$set": {
+                "status": 1,
+            }
+        })
     return newTask
 }
 
 /**
  * accept task works
- * @param {String} name task name
+ * @param {String} id task id
  */
-async function acceptTask(name) {
-    const newTask = await Task.updateOne({status: 3,name},
+async function acceptTask(id) {
+    const newTask = await Task.findOneAndUpdate({ _id: id, status: 3},
 {"$set" : {"status" : 3}})
     return newTask
 }
 
 /**
  * bid task
- * @param {String} name task name
+ * @param {String} id task id
  * @param {String} fdUsername freelancer designer name
  */
-async function bidTask(fdUsername, name) {
-    const task = await Task.findOne({ status: 0, name })
+async function bidTask(fdUsername, id) {
+    const task = await Task.findOne({ status: 0, _id: id })
     const user = await User.findOne({ username: fdUsername })
-    task.biddingList.push(user)
+    const bidder = {
+        bidder_username: user.username
+    }
+    task.biddingList.push(bidder)
     const saveTask = await task.save()
     return saveTask
 }
@@ -137,7 +165,8 @@ module.exports = {
     returnTask,
     acceptTask,
     submitTask,
-    selectTaskFD
+    selectTaskFD,
+    deleteTaskFD
 }
 
 

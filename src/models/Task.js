@@ -37,12 +37,8 @@ const Schema = mongoose.Schema({
   biddingList: [{
     bidder_username: {
       type: String,
-    },
-    bidder_telephone: {
-      type: Number
-    },
+    }
   }],
-  default: [],
   fdUsername: {
     type: String,
     default: "",
@@ -56,6 +52,17 @@ const Schema = mongoose.Schema({
   isCanceled: {
     type: Boolean,
     default: false 
+  },
+  // Designer's work
+  work: {
+    uploader_file: {
+      type: String,
+      default: "",
+    },
+    uploader_description: {
+      type: String,
+      default: "",
+    }
   }
 }, { timestamps: true })
 
