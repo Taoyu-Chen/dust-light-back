@@ -197,7 +197,7 @@ router.get('/bp/lists', BPLoginCheck, async (ctx, next) => {
  * /api/tasks/fd/task: 
  *   get: 
  *     description: get task by freelancer designer username
- *     tags: [Task]
+ *     tags: [Freelancer Designer Task]
  *     responses:
  *       '200':
  *         description: Ok
@@ -333,7 +333,7 @@ router.get('/bp/cancel/:id', BPLoginCheck, async (ctx, next) => {
 
 /**
  * @swagger
- * /api/tasks/submit/{taskId}: 
+ * /api/tasks/fd/submit/{taskId}: 
  *   post: 
  *     description: submit task by id
  *     tags: [Freelancer Designer Task]

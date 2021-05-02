@@ -117,7 +117,7 @@ async function submitTask(id, description) {
  * @param {String} id task id
  */
 async function returnTask(id) {
-    const newTask = await Task.findOneAndUpdate({ _id: id, status: 3 },
+    const newTask = await Task.findOneAndUpdate({ _id: id, status: 2 },
         {
             "$set": {
                 "status": 1,
@@ -131,7 +131,7 @@ async function returnTask(id) {
  * @param {String} id task id
  */
 async function acceptTask(id) {
-    const newTask = await Task.findOneAndUpdate({ _id: id, status: 3},
+    const newTask = await Task.findOneAndUpdate({ _id: id, status: 2},
 {"$set" : {"status" : 3}})
     return newTask
 }
