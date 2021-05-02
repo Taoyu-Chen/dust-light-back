@@ -34,28 +34,50 @@ async function register(userInfo = {}) {
 
 /**
  * lock user
- * @param {String} username
+ * @param {String} id user id
  */
-async function lock(username) {
-    const newUser = await User.updateOne({username},
+async function lock(id) {
+    const newUser = await User.updateOne({_id: id},
 {"$set" : {"isLock" : true}})
     return newUser
 }
 
 /**
- * lock user
- * @param {String} username
+ * unlock user
+ * @param {String} id user id
  */
-async function unlock(username) {
-    const newUser = await User.updateOne({username},
+async function unlock(id) {
+    const newUser = await User.updateOne({_id: id},
 {"$set" : {"isLock" : false}})
     return newUser
+}
+
+async function getAllBPList() {
+    const bpList = await User.find({ type: "Business People" })
+    return  bpList
+}
+
+async function getAllFDList() {
+    const fdList = await User.find({ type: "Freelancer Designer" })
+    return  fdList
+}
+
+/**
+ * delete user
+ * @param {String} id user id
+ */
+async function deleteUser(id) {
+    const deleteUser = await User.deleteOne({ _id: id })
+    return  deleteUser 
 }
 
 module.exports = {
     login,
     register,
     lock,
-    unlock
+    unlock,
+    deleteUser,
+    getAllBPList,
+    getAllFDList
 }
 
